@@ -16,7 +16,7 @@ function App() {
       <IncorrectLetters />
       <DisplayWord />
       <Notification />
-      {/* <Popup /> */}
+      <Popup />
     </WordProvider>
     </>
   );

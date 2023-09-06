@@ -59,15 +59,15 @@ const Figure = () => {
           {attempts > 4 ? (
             <rect
               width="5"
-              height="75"
-              transform="translate(452 365) rotate(45)"
+              height="90"
+              transform="translate(452 367) rotate(45)"
             />
           ): null}
           {attempts > 5 ? (
             <rect
               width="5"
-              height="75"
-              transform="translate(452 368) rotate(-45)"
+              height="90"
+              transform="translate(452 369) rotate(-45)"
             />
           ): null}
         </g>

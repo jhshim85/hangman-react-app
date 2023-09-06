@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react"
+import { useState, useEffect, createContext, useCallback } from "react"
 import axios from "axios";
 
 const WordContext = createContext(null);
@@ -8,13 +8,10 @@ const WordProvider = ({children}) => {
 
   const [word, setWord] = useState('');
   const [playable, setPlayable] = useState(true);
-  const [correctLetters, setCorrectLetters] = useState([]);
-  const [incorrectLetters, setIncorrectLetters] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
-  const [finalMsg, setFinalMsg] = useState('');
-  const [revealWord, setRevealWord] = useState('');
+  const [guessedLetters, setGuessedLetters] = useState([])
 
-  useEffect(() => {
+  const getWord = () => {
     axios({
       url: `https://random-word-api.herokuapp.com/word`
     }).then((res) => {
@@ -22,71 +19,86 @@ const WordProvider = ({children}) => {
         setWord(res.data.toString())
       )
     })
+  }
+
+  useEffect(() => {
+    getWord();
   }, [])
   
   console.log(word);
 
-  const handleKey = (event) => {
-    const { key, keyCode } = event;
-    if (playable && keyCode >= 65 && keyCode <= 90) {
-      const letter = key.toLowerCase();
-      if (word.includes(letter)) {
-        if (!correctLetters.includes(letter)) {
-          setCorrectLetters((currentLetters) => [...currentLetters, letter]);
-        } else {
-          setShowNotification(true);
-          setTimeout(() => {
-            setShowNotification(false);
-          }, 2000);
-        }
-      } else {
-        if (!incorrectLetters.includes(letter)) {
-          setIncorrectLetters((currentLetters) => [...currentLetters, letter]);
-        } else {
-          setShowNotification(true);
-          setTimeout(() => {
-            setShowNotification(false);
-          }, 2000);
-        }
-      }
-    }
-  };
+  const incorrectLetters = guessedLetters.filter(letter => !word.includes(letter))
+
+  const isLoser = incorrectLetters.length >= 6;
+
+  const isWinner = word.split('').every(letter => guessedLetters.includes(letter));
+
+  const addGuessedLetter = useCallback((letter) => {
+    if (guessedLetters.includes(letter) || isLoser || isWinner)
+      return
+        setGuessedLetters((currentLetters) => [...currentLetters, letter]);
+  }, [guessedLetters, isWinner, isLoser])
 
   useEffect(() => {
+    const handleKey = (event) => {
+      const { key, keyCode } = event;
+      if (playable && keyCode >= 65 && keyCode <= 90) {
+        const letter = key.toLowerCase();
+        if (word.includes(letter)) {
+          if (guessedLetters.includes(letter)) {
+            setShowNotification(true);
+            setTimeout(() => {
+              setShowNotification(false);
+            }, 2000);
+          }
+        } else {
+          if (incorrectLetters.includes(letter)) {
+            setShowNotification(true);
+            setTimeout(() => {
+              setShowNotification(false);
+            }, 2000);
+          }
+        }
+        addGuessedLetter(letter)
+      }
+    };
     document.addEventListener("keydown", handleKey);
 
     return () => {
       document.removeEventListener("keydown", handleKey);
     };
-  }, [correctLetters, incorrectLetters, word, playable]);
+  }, [addGuessedLetter, playable, incorrectLetters, guessedLetters, word]);
 
-  const winOrLose = (correct, incorrect, word) => {
-    let status = 'win';
-    word.toString().split('').forEach((letter) => {
-      if (!correct.includes(letter)) {
-        status ='';
-      }
-    });
-    if (incorrect.length === 6) {
-      status = 'lose';
+  useEffect(() => {
+    if (isLoser) {
+      setPlayable(false);
     }
-    return status;
+    if (isWinner) {
+      setPlayable(false);
+    }
+  }, [isLoser, isWinner])
+
+  useEffect(() => {
+    setPlayable(true);
+  }, []);
+
+  const playAgain = () => {
+    setPlayable(true);
+    getWord();
+    setGuessedLetters([]);
   }
   
   return (
     <WordContext.Provider
       value={{
         word,
-        // lengthOfWord,
-        // selectedWord,
-        correctLetters,
+        guessedLetters,
         incorrectLetters,
         showNotification,
         playable,
-        finalMsg,
-        revealWord,
-        setPlayable,
-        winOrLose,
+        isLoser,
+        isWinner,
+        playAgain,
       }}
     >
       {children}
