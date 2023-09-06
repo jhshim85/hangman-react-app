@@ -13,7 +13,7 @@ const WordProvider = ({children}) => {
 
   const getWord = () => {
     axios({
-      url: `https://random-word-api.herokuapp.com/word`
+      url: `https://random-word-api.herokuapp.com/word?length=5`
     }).then((res) => {
       return (
         setWord(res.data.toString())
@@ -24,8 +24,6 @@ const WordProvider = ({children}) => {
   useEffect(() => {
     getWord();
   }, [])
-  
-  console.log(word);
 
   const incorrectLetters = guessedLetters.filter(letter => !word.includes(letter))
 

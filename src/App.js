@@ -5,20 +5,25 @@ import WordProvider from "./components/WordProvider";
 import DisplayWord from "./components/DisplayWord";
 import Notification from "./components/Notification";
 import Popup from "./components/Popup";
+import { Container } from "react-bootstrap";
 
 function App() {
   
   return (
-    <>
-      <Header />
-    <WordProvider>
-      <Figure />
-      <IncorrectLetters />
-      <DisplayWord />
-      <Notification />
-      <Popup />
-    </WordProvider>
-    </>
+    <Container fluid>
+      <div className="wrapper">
+        <Header />
+        <WordProvider>
+          <main>
+            <Figure />
+            <IncorrectLetters />
+            <DisplayWord />
+            <Notification />
+            <Popup />
+          </main>
+        </WordProvider>
+      </div>
+    </Container>
   );
 }
 

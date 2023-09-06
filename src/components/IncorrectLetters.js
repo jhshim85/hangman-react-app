@@ -6,19 +6,19 @@ const IncorrectLetters = () => {
   const { incorrectLetters } = useContext(WordContext);
 
   return (
-    <>
-      <p>Incorrect Letters: 
+    <section className="incorrect__container">
+      <h3>Incorrect Guesses: 
       {
         incorrectLetters.length > 0
         ? incorrectLetters.map((letter, i) => {
           return (
             <span key={i}>{letter}</span>
           )
-        }).reduce((prev, curr) => prev == null ? [curr] : [prev, ', ', curr], null)
+        }).reduce((prev, curr) => prev == null ? [' ', curr] : [prev, ', ', curr], null)
         : null 
       }
-      </p>
-    </>
+      </h3>
+    </section>
   )
 }
 

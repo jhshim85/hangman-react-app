@@ -1,17 +1,24 @@
 import { useContext } from "react";
 import { WordContext } from "./WordProvider";
+import { Alert, Toast } from "react-bootstrap";
 
 const Notification = () => {
   const { showNotification } = useContext(WordContext);
 
   return (
-    <>
+    <section className="notification__container">
       {
         showNotification
-        ? <p>You have already entered this letter</p>
+        ? 
+        <Toast bg="info">
+          <Toast.Body>
+            <p>😮 Uh Oh..</p>
+            <p>You've already entered this letter.</p>
+          </Toast.Body>
+        </Toast>
         : null
       }
-    </>
+    </section>
   )
 };
 

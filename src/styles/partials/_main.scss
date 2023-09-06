@@ -1,0 +1,61 @@
+.container-fluid {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  // background-color: black;
+}
+
+.title {
+  text-align: center;
+  margin-top: 50px;
+  span {
+    text-transform: uppercase;
+    color: red;
+  }
+}
+
+.figure__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    fill: red;
+    circle {
+      stroke: blue;
+      fill: blue;
+    }
+  }
+}
+
+.incorrect__container {
+  h3 {
+    font-size: 1.2rem;
+    color: blue;
+    span {
+      font-size: 1.1rem;
+      color: red;
+    }
+  }
+}
+
+.correct__container {
+  margin-top: 20px;
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.notification__container {
+  p {
+    display: block;
+    margin: 0;
+  }
+}
+
+.popup__container {
+  &--text {
+    p {
+      display: block;
+    }
+  }
+}

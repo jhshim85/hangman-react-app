@@ -7,10 +7,10 @@ const Figure = () => {
   const attempts = incorrectLetters.length;
   
   return (
-    <>
+    <section className="figure__container">
       {/* Base Rod */}
       <svg width="500" height="500">
-        <g transform="translate(-170 -120)">
+        <g transform="translate(-130 -100)">
           <rect
             width="5"
             height="60"
@@ -72,7 +72,7 @@ const Figure = () => {
           ): null}
         </g>
       </svg>
-    </>
+    </section>
   );
 }
 
