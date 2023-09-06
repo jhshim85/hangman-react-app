@@ -1,7 +1,18 @@
-const Notification = () => {
-  return (
-    <div>Notification</div>
-  )
-}
+import { useContext } from "react";
+import { WordContext } from "./WordProvider";
 
-export default Notification
+const Notification = () => {
+  const { showNotification } = useContext(WordContext);
+
+  return (
+    <>
+      {
+        showNotification
+        ? <p>You have already entered this letter</p>
+        : null
+      }
+    </>
+  )
+};
+
+export default Notification;

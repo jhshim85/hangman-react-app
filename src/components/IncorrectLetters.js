@@ -3,21 +3,21 @@ import { WordContext } from "./WordProvider";
 
 const IncorrectLetters = () => {
 
-  const { word, lengthOfWord } = useContext(WordContext)
-  console.log(word[0]);
-  console.log(lengthOfWord);
-  const emptyLetters = () => {
-    const listLetters = [];
-    for (let i = 0; i < lengthOfWord; i++) {
-      listLetters.push("_ ")
-    };
-    return listLetters;
-  }
+  const { incorrectLetters } = useContext(WordContext);
 
   return (
     <>
-      <div>IncorrectLetters: {word}</div>
-      <p>{emptyLetters()}</p>
+      <p>Incorrect Letters: 
+      {
+        incorrectLetters.length > 0
+        ? incorrectLetters.map((letter, i) => {
+          return (
+            <span key={i}>{letter}</span>
+          )
+        }).reduce((prev, curr) => prev == null ? [curr] : [prev, ', ', curr], null)
+        : null 
+      }
+      </p>
     </>
   )
 }
