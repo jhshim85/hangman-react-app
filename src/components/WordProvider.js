@@ -13,7 +13,7 @@ const WordProvider = ({children}) => {
 
   const getWord = () => {
     axios({
-      url: `https://random-word-api.herokuapp.com/word?length=5`
+      url: `https://random-word-api.herokuapp.com/word`
     }).then((res) => {
       return (
         setWord(res.data.toString())
@@ -47,14 +47,14 @@ const WordProvider = ({children}) => {
             setShowNotification(true);
             setTimeout(() => {
               setShowNotification(false);
-            }, 2000);
+            }, 1000);
           }
         } else {
           if (incorrectLetters.includes(letter)) {
             setShowNotification(true);
             setTimeout(() => {
               setShowNotification(false);
-            }, 2000);
+            }, 1000);
           }
         }
         addGuessedLetter(letter)
@@ -97,6 +97,7 @@ const WordProvider = ({children}) => {
         isLoser,
         isWinner,
         playAgain,
+        addGuessedLetter,
       }}
     >
       {children}

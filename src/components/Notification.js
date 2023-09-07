@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { WordContext } from "./WordProvider";
-import { Alert, Toast } from "react-bootstrap";
+import { Toast } from "react-bootstrap";
 
 const Notification = () => {
+
   const { showNotification } = useContext(WordContext);
 
   return (

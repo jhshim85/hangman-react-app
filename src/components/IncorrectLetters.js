@@ -7,19 +7,19 @@ const IncorrectLetters = () => {
 
   return (
     <section className="incorrect__container">
-      <h3>Incorrect Guesses: 
-      {
-        incorrectLetters.length > 0
-        ? incorrectLetters.map((letter, i) => {
-          return (
-            <span key={i}>{letter}</span>
-          )
-        }).reduce((prev, curr) => prev == null ? [' ', curr] : [prev, ', ', curr], null)
-        : null 
-      }
-      </h3>
+      <h3>Incorrect Guesses: </h3>
+      {incorrectLetters.length > 0
+        ? incorrectLetters
+            .map((letter, i) => {
+              return <span key={i}>{letter}</span>;
+            })
+            .reduce(
+              (prev, curr) => (prev == null ? [" ", curr] : [prev, " ", curr]),
+              null
+            )
+        : null}
     </section>
-  )
+  );
 }
 
 export default IncorrectLetters

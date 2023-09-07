@@ -9,8 +9,8 @@ const Figure = () => {
   return (
     <section className="figure__container">
       {/* Base Rod */}
-      <svg width="500" height="500">
-        <g transform="translate(-130 -100)">
+      <svg width="400" height="400">
+        <g transform="translate(-200 -100)" className="figure__container--rod">
           <rect
             width="5"
             height="60"
@@ -31,45 +31,55 @@ const Figure = () => {
               fill="none"
               stroke="#000"
               strokeWidth="5"
+              className="figure__container--head"
             >
               <circle cx="27.5" cy="27.5" r="27.5" stroke="none" />
               <circle cx="27.5" cy="27.5" r="25" fill="none" />
             </g>
-          ): null}
+          ) : null}
           {/* Body */}
           {attempts > 1 ? (
-            <rect width="5" height="90" transform="translate(452 281)" />
-          ): null}
+            <rect
+              width="5"
+              height="90"
+              transform="translate(452 281)"
+              className="figure__container--body"
+            />
+          ) : null}
           {/* Arms */}
           {attempts > 2 ? (
             <rect
               width="5"
               height="56"
               transform="translate(455 310) rotate(115)"
+              className="figure__container--body"
             />
-          ): null}
+          ) : null}
           {attempts > 3 ? (
             <rect
               width="5"
               height="56"
               transform="translate(455 315) rotate(-115)"
+              className="figure__container--body"
             />
-          ): null}
+          ) : null}
           {/* Legs */}
           {attempts > 4 ? (
             <rect
               width="5"
               height="90"
               transform="translate(452 367) rotate(45)"
+              className="figure__container--body"
             />
-          ): null}
+          ) : null}
           {attempts > 5 ? (
             <rect
               width="5"
               height="90"
               transform="translate(452 369) rotate(-45)"
+              className="figure__container--body"
             />
-          ): null}
+          ) : null}
         </g>
       </svg>
     </section>

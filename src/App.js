@@ -6,6 +6,7 @@ import DisplayWord from "./components/DisplayWord";
 import Notification from "./components/Notification";
 import Popup from "./components/Popup";
 import { Container } from "react-bootstrap";
+import Keyboard from "./components/Keyboard";
 
 function App() {
   
@@ -15,11 +16,18 @@ function App() {
         <Header />
         <WordProvider>
           <main>
-            <Figure />
-            <IncorrectLetters />
-            <DisplayWord />
-            <Notification />
-            <Popup />
+            <div className="display__container">
+              <div className="display__container--figure">
+                <Figure />
+                <Popup />
+              </div>
+              <div className="display__container--letters">
+                <IncorrectLetters />
+                <DisplayWord />
+                <Notification />
+              </div>
+            </div>
+            <Keyboard />
           </main>
         </WordProvider>
       </div>
